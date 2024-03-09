@@ -46,8 +46,8 @@ def my_gauss_filter(img, ksize=3, sigma=1.5, kernel=[]):
 def my_gauss_filter_single(img, ksize=3, sigma=1.5, kernel=None):
     if kernel is None:
         kernel = my_gauss_kernel(ksize, sigma)
-    result_img_bgr = my_gauss_filter(img, ksize, sigma, kernel)
-    return result_img_bgr
+    result_img_single = my_gauss_filter(img, ksize, sigma, kernel)
+    return result_img_single
 
 
 # 自定义高斯滤波函数（BGR彩色图像）
