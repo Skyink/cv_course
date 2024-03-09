@@ -121,10 +121,10 @@ img_filter_size9 = my_gauss_filter_bgr(img, 9, 5)
 compare_size = np.hstack([img, img_filter_size3, img_filter_size5, img_filter_size9])
 
 # 对比高斯核参数sigma
-img_filter_sigma5 = my_gauss_filter_bgr(img, 5, 1.5)
-img_filter_sigma10 = my_gauss_filter_bgr(img, 5, 5)
-img_filter_sigma20 = my_gauss_filter_bgr(img, 5, 10)
-compare_sigma = np.hstack([img, img_filter_sigma5, img_filter_sigma10, img_filter_sigma20])
+img_filter_sigma2 = my_gauss_filter_bgr(img, 9, 2)
+img_filter_sigma5 = my_gauss_filter_bgr(img, 9, 5)
+img_filter_sigma10 = my_gauss_filter_bgr(img, 9, 10)
+compare_sigma = np.hstack([img, img_filter_sigma2, img_filter_sigma5, img_filter_sigma10])
 image_compare_kernel = np.vstack([compare_size, compare_sigma])
 img_show('image_compare_kernel', image_compare_kernel)
 
