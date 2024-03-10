@@ -26,24 +26,23 @@ def my_gauss_kernel(size=3, sigma=1.5):
 
 # 自定义高斯滤波函数（单通道）
 def my_gauss_filter(img, ksize=3, sigma=1.5, kernel=[]):
-    height = img.shape[0]
-    width = img.shape[1]
+    padding = int(ksize/2)
+    height = img.shape[0] - padding*2
+    width = img.shape[1] - padding*2
     result_img = np.zeros((height, width), np.uint8)
     # 计算卷积
-    half_ksize = int(ksize/2)
-    ksize_up = half_ksize + 1
-    ksize_below = 0 - half_ksize
-    for i in range(half_ksize, height - half_ksize):
-        for j in range(half_ksize, width - half_ksize):
+    for i in range(0, height):
+        for j in range(0, width):
             sum = 0
-            for k in range(ksize_below, ksize_up):
-                for l in range(ksize_below, ksize_up):
-                    sum += img[i + k, j + l] * kernel[k + 1, l + 1]  # 高斯滤波
+            for k in range(0, ksize):
+                for l in range(0, ksize):
+                    sum += img[i + k, j + l] * kernel[k, l]  # 高斯滤波
             result_img[i, j] = sum
-        if i % 100 == half_ksize:
+        if i % 100 == 0:
             print("Calculating convolution... i={}".format(i))
     print("Convolution is finished!")
-    return result_img
+    result_img_padding = cv.copyMakeBorder(result_img, padding, padding, padding, padding, cv.BORDER_DEFAULT)
+    return result_img_padding
 
 
 # 自定义高斯滤波函数（灰度图像）
@@ -106,7 +105,7 @@ img_guassian_gray = cv.GaussianBlur(img_gray, (K_SIZE, K_SIZE), SIGMA, my_kernel
 # 对比灰度滤波效果
 img_compare_gray = np.hstack([img_gray, img_filter_gray, img_guassian_gray])
 # 显示结果及保存
-# img_show('compare_gray', img_compare_gray)
+img_show('compare_gray', img_compare_gray)
 cv.imwrite("image/img_compare_gray.png", img_compare_gray)
 
 # 处理彩色图像 img
@@ -119,7 +118,7 @@ img_guassian_bgr = cv.GaussianBlur(img, (K_SIZE, K_SIZE), SIGMA)
 # 对比彩色滤波效果
 img_compare_color = np.hstack([img, img_filter_bgr, img_filter_hsv, img_guassian_bgr])
 # 显示结果及保存
-# img_show('compare_color', img_compare_color)
+img_show('compare_color', img_compare_color)
 cv.imwrite("image/img_compare_color.png", img_compare_color)
 
 # 对比高斯核参数size
@@ -134,6 +133,6 @@ img_filter_sigma10 = my_gauss_filter_bgr(img, 9, 10)
 compare_sigma = np.hstack([img, img_filter_sigma2, img_filter_sigma5, img_filter_sigma10])
 image_compare_kernel = np.vstack([compare_size, compare_sigma])
 # 显示结果及保存
-# img_show('image_compare_kernel', image_compare_kernel)
+img_show('image_compare_kernel', image_compare_kernel)
 cv.imwrite("image/image_compare_kernel.png", image_compare_kernel)
 
