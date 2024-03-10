@@ -41,6 +41,7 @@ def my_gauss_filter(img, ksize=3, sigma=1.5, kernel=[]):
         if i % 100 == 0:
             print("Calculating convolution... i={}".format(i))
     print("Convolution is finished!")
+    # 填充边界
     result_img_padding = cv.copyMakeBorder(result_img, padding, padding, padding, padding, cv.BORDER_DEFAULT)
     return result_img_padding
 
