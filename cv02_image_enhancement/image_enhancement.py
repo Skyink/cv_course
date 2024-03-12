@@ -59,7 +59,7 @@ cv.imwrite('image/compare_eh.png', img_eh_compare)
 # 统计原始图像的直方图，灰度256阶
 plt.subplot(2, 1, 1)
 plt.hist(img.flatten(), 256)
-plt.suptitle('Original Image Gray Hist')
+plt.title('Original Image Gray Hist')
 # 累计分布函数
 plt.subplot(2, 1, 2)
 plt.plot(cdf, color='r', label='cumulative distribution function')
@@ -118,7 +118,9 @@ img_clahe_limit20 = clahe_limit20.apply(img)
 img_clahe_limit40 = clahe_limit40.apply(img)
 img_clahe_limit100 = clahe_limit100.apply(img)
 # 显示
-img_clahe_compare_limit = np.hstack([img, img_clahe_limit2, img_clahe_limit5, img_clahe_limit10, img_clahe_limit20, img_clahe_limit40, img_clahe_limit100])
+img_clahe_compare_limit1 = np.hstack([img, img_clahe_limit2, img_clahe_limit5, img_clahe_limit10])
+img_clahe_compare_limit2 = np.hstack([img, img_clahe_limit20, img_clahe_limit40, img_clahe_limit100])
+img_clahe_compare_limit = np.vstack([img_clahe_compare_limit1, img_clahe_compare_limit2])
 img_show('img_clahe_compare_limit', img_clahe_compare_limit)
 cv.imwrite('image/img_clahe_compare_limit.png', img_clahe_compare_limit)
 
@@ -143,13 +145,13 @@ ax[1][2].hist(img_clahe_limit10.flatten(), 256)
 ax[1][2].set_title('clipLimit=10')
 # limit = 20
 ax[2][0].hist(img_clahe_limit20.flatten(), 256)
-ax[2][0].set_title('clipLimit=2')
+ax[2][0].set_title('clipLimit=20')
 # limit = 40
 ax[2][1].hist(img_clahe_limit40.flatten(), 256)
-ax[2][1].set_title('clipLimit=5')
+ax[2][1].set_title('clipLimit=40')
 # limit = 100
 ax[2][2].hist(img_clahe_limit100.flatten(), 256)
-ax[2][2].set_title('clipLimit=10')
+ax[2][2].set_title('clipLimit=100')
 # 保存及显示
 plt.savefig('image/hist_compare_clahe_limit.png')
 plt.show()
