@@ -77,6 +77,22 @@ plt.legend(loc=2)
 plt.title('Equalized Image Gray Hist')
 plt.savefig('image/gray_hist_equalized_image.png')
 plt.show()
+# 比较均衡化直方图
+# 原始
+plt.subplot(3, 1, 1)
+plt.suptitle('Equalized Image Gray Hist')
+plt.hist(img.flatten(), 256, label='origin')
+plt.legend()
+# 自定义
+plt.subplot(3, 1, 2)
+plt.hist(img_eh_int.flatten(), 256, label='custom function')
+plt.legend()
+# 库函数
+plt.subplot(3, 1, 3)
+plt.hist(img_eh_opencv.flatten(), 256, label='opencv function')
+plt.legend()
+plt.savefig('image/gray_hist_equalized_image2.png')
+plt.show()
 
 
 # ==== part two: Contrast Limited AHE (CLAHE) ======
