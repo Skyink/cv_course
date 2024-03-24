@@ -1,3 +1,5 @@
+# 读取MNIST数据集图片，并二值化保存
+
 import torch
 import torch.nn as nn
 from torchvision import datasets, transforms

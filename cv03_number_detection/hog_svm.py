@@ -38,15 +38,15 @@ def hog(img):
     return hist
 
 
-TRAIN_NUM = 1
-TEST_NUM = 9
+TRAIN_NUM = 70
+TEST_NUM = 30
 
 
 # =============getData函数，获取训练数据、测试数据及对应标签=================
 def getData():
     data = []  # 存储所有数字的所有图像
     for i in range(0, 10):
-        iTen = glob.glob('data/hog_svm/sorted/' + str(i) + '/*.*')  # 所有图像的文件名
+        iTen = glob.glob('data/num_dataset/new/train100/' + str(i) + '/*.*')  # 所有图像的文件名
         num = []  # 临时列表，每次循环用来存储某一个数字的所有图像
         for number in iTen:  # 逐个提取文件名
             # step 1:预处理（读取图像，色彩转换、大小转换）
@@ -55,7 +55,7 @@ def getData():
             # x=255-x   必要时需要做反色处理：前景背景切换
             image = cv2.resize(image, (20, 20))  # 调整大小
             # step2：倾斜校正
-            # image = deskew(image)  # 倾斜校正
+            image = deskew(image)  # 倾斜校正
             # step3：获取hog值
             hogValue = hog(image)  # 获取hog值
             num.append(hogValue)  # 把当前图像的hog值放入num中
